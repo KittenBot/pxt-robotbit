@@ -1,0 +1,17 @@
+{
+    "name": "robotbit",
+    "version": "0.0.0",
+    "description": "Extension for Kittenbot Robotbit",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "main.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true
+}
