@@ -24,6 +24,18 @@ namespace robotbit {
     const ALL_LED_OFF_L = 0xFC
     const ALL_LED_OFF_H = 0xFD
 	
+	const STP_CHA_L = 2047
+	const STP_CHA_H = 4095
+	
+	const STP_CHB_L = 1
+	const STP_CHB_H = 2047
+	
+	const STP_CHC_L = 1023
+	const STP_CHC_H = 3071
+	
+	const STP_CHD_L = 3071
+	const STP_CHD_H = 1023
+	
 	export enum Servos {
 		S1 = 0x01,
 		S2 = 0x02,
@@ -40,6 +52,11 @@ namespace robotbit {
 		M1B = 0x2,
 		M2A = 0x3,
 		M2B = 0x4
+	}
+	
+	export enum Steppers {
+		M1 = 0x1,
+		M2 = 0x2
 	}
 
     let initialized = false
@@ -59,9 +76,15 @@ namespace robotbit {
 
     function initPCA9685(): void {
 		i2cwrite(MODE1, 0x00)
+        setFreq(50);
+        initialized = true
+    }
+	
+	function setFreq(freq: number): void {
+		// Constrain the frequency
         let prescaleval = 25000000;
         prescaleval /= 4096;
-        prescaleval /= 50;
+        prescaleval /= freq;
         prescaleval -= 1;
         let prescale = prescaleval; //Math.Floor(prescaleval + 0.5);
         let oldmode = i2cread(MODE1);        
@@ -71,9 +94,7 @@ namespace robotbit {
         i2cwrite(MODE1, oldmode);
         control.waitMicros(5000);
         i2cwrite(MODE1, oldmode | 0xa1);
-
-        initialized = true
-    }
+	}
 	
 	function setPwm(channel: number, on: number, off: number): void {
 		if (channel < 0 || channel > 15)
@@ -90,20 +111,27 @@ namespace robotbit {
 
 	
 	//% blockId=robotbit_servo block="Servo|index %index|degree %degree"
-	export function Servo(index: Servos, degree: number = 90): void {
+	export function Servo(index: Servos, degree: number): void {
 		if(!initialized){
 			initPCA9685()
 		}
 		// 50hz: 20,000 us
-        let v_us = (degree*1000/180+1000)
+        let v_us = (degree*1600/180+700) // 0.7 ~ 2.3
         let value = v_us*4096/20000
         setPwm(index+7, 0, value)
     }
 	
 	//% blockId=robotbit_motor block="Motor|index %index|speed %speed"
-	export function Motor(index: Motors, speed: number = 100): void {
+	export function Motor(index: Motors, speed: number): void {
 		if(!initialized){
 			initPCA9685()
+		}
+		speed = speed*16; // map 255 to 4096
+		if(speed>=4096){
+			speed = 4095
+		}
+		if(speed<=-4096){
+			speed = -4095
 		}
 		if(index>4 || index<=0)
 			return
@@ -119,4 +147,33 @@ namespace robotbit {
 		
 	}
 	
+	//% blockId=robotbit_stepper block="Stepper28BYJ|index %index|degree %degree"
+	export function Stepper28BYJ(index: Steppers, degree: number): void {
+		setFreq(100);
+		if(index == Steppers.M1){
+			setPwm(0,STP_CHA_L,STP_CHA_H);
+			setPwm(2,STP_CHB_L,STP_CHB_H);
+			setPwm(1,STP_CHC_L,STP_CHC_H);
+			setPwm(3,STP_CHD_L,STP_CHD_H);	
+		}else{
+			setPwm(4,STP_CHA_L,STP_CHA_H);
+			setPwm(6,STP_CHB_L,STP_CHB_H);
+			setPwm(5,STP_CHC_L,STP_CHC_H);
+			setPwm(7,STP_CHD_L,STP_CHD_H);	
+		}
+		
+		basic.pause(5120*degree/360);
+		Stop()
+		setFreq(50);
+	}
+	
+	
+	//% blockId=robotbit_stop block="Stop|"
+	export function Stop(): void {
+		for(let idx=0;idx<8;idx++){
+			setPwm(idx, 0, 0);
+		}
+	}
+	
+
 }
