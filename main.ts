@@ -158,6 +158,9 @@ namespace robotbit {
 	//% blockId=robotbit_stepper_degree block="Stepper 28BYJ-48|%index|degree %degree"
 	//% weight=90
 	export function StepperDegree(index: Steppers, degree: number): void {
+		if(!initialized){
+			initPCA9685()
+		}
 		setFreq(100);
 		if(index == Steppers.M1){
 			if(degree>0){
