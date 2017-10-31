@@ -277,5 +277,21 @@ namespace robotbit {
 		}	
 	}
 	
+	//% blockId=robotbit_ultrasonic block="Ultrasonic pin %pin"
+	//% weight=10
+    export function ultrasonic(pin: DigitalPin): number {
+        // send pulse
+        pins.setPull(pin, PinPullMode.PullNone);
+        pins.digitalWritePin(pin, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(pin, 1);
+        control.waitMicros(10);
+        pins.digitalWritePin(pin, 0);
+
+        // read pulse
+        const d = pins.pulseIn(pin, PulseValue.High, 500 * 58);
+        return d / 58;
+    }
+
 
 }
