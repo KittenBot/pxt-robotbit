@@ -1,16 +1,16 @@
 {
     "name": "robotbit",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Extension for Kittenbot Robotbit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-		 "neopixel": "github:microsoft/pxt-neopixel#v0.3.10"
+        "neopixel": "github:microsoft/pxt-neopixel#v0.3.10"
     },
     "files": [
         "README.md",
         "main.ts",
-		"_locales/zh/robotbit-strings.json"
+        "_locales/zh/robotbit-strings.json"
     ],
     "testFiles": [
         "test.ts"
