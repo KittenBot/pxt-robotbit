@@ -61,21 +61,21 @@ namespace robotbit {
 	
 	export enum Turns {
 		//% blockId="T1B4" block="1/4"
-	    T1B4 = 0.25,
+	    T1B4 = 90,
 		//% blockId="T1B2" block="1/2"
-	    T1B2 = 0.5,
+	    T1B2 = 180,
 		//% blockId="T1B0" block="1"
-	    T1B0 = 1,
+	    T1B0 = 360,
 		//% blockId="T2B0" block="2"
-	    T2B0 = 2,
+	    T2B0 = 720,
 		//% blockId="T3B0" block="3"
-	    T3B0 = 3,
+	    T3B0 = 1080,
 		//% blockId="T4B0" block="4"
-	    T4B0 = 4,
+	    T4B0 = 1440,
 		//% blockId="T5B0" block="5"
-	    T5B0 = 5
+	    T5B0 = 1800
 	}
-
+	
     let initialized = false
 	let neoStrip: neopixel.Strip;
 
@@ -125,7 +125,42 @@ namespace robotbit {
         buf[3] = off & 0xff;
         buf[4] = (off>>8) & 0xff;
         pins.i2cWriteBuffer(PCA9685_ADDRESS, buf);
-	}	
+	}
+	
+	
+	function setStepper(index: number, dir: boolean): void {
+		if(index == 1){
+			if(dir){
+				setPwm(0,STP_CHA_L,STP_CHA_H);
+				setPwm(2,STP_CHB_L,STP_CHB_H);
+				setPwm(1,STP_CHC_L,STP_CHC_H);
+				setPwm(3,STP_CHD_L,STP_CHD_H);		
+			}else{
+				setPwm(3,STP_CHA_L,STP_CHA_H);
+				setPwm(1,STP_CHB_L,STP_CHB_H);
+				setPwm(2,STP_CHC_L,STP_CHC_H);
+				setPwm(0,STP_CHD_L,STP_CHD_H);
+			}
+		}else{
+			if(dir){
+				setPwm(4,STP_CHA_L,STP_CHA_H);
+				setPwm(6,STP_CHB_L,STP_CHB_H);
+				setPwm(5,STP_CHC_L,STP_CHC_H);
+				setPwm(7,STP_CHD_L,STP_CHD_H);		
+			}else{
+				setPwm(7,STP_CHA_L,STP_CHA_H);
+				setPwm(5,STP_CHB_L,STP_CHB_H);
+				setPwm(6,STP_CHC_L,STP_CHC_H);
+				setPwm(4,STP_CHD_L,STP_CHD_H);
+			}
+		}
+	}
+	
+	function stopMotor(index: number){
+		setPwm((index-1)*2, 0, 0);
+		setPwm((index-1)*2+1, 0, 0);
+	}
+	
 
 	/**
      * Init RGB pixels mounted on robotbit
@@ -162,46 +197,45 @@ namespace robotbit {
 			initPCA9685()
 		}
 		setFreq(100);
-		if(index == Steppers.M1){
-			if(degree>0){
-				setPwm(0,STP_CHA_L,STP_CHA_H);
-				setPwm(2,STP_CHB_L,STP_CHB_H);
-				setPwm(1,STP_CHC_L,STP_CHC_H);
-				setPwm(3,STP_CHD_L,STP_CHD_H);		
-			}else{
-				setPwm(3,STP_CHA_L,STP_CHA_H);
-				setPwm(1,STP_CHB_L,STP_CHB_H);
-				setPwm(2,STP_CHC_L,STP_CHC_H);
-				setPwm(0,STP_CHD_L,STP_CHD_H);
-				degree = -degree;
-			}
-		}else{
-			if(degree>0){
-				setPwm(4,STP_CHA_L,STP_CHA_H);
-				setPwm(6,STP_CHB_L,STP_CHB_H);
-				setPwm(5,STP_CHC_L,STP_CHC_H);
-				setPwm(7,STP_CHD_L,STP_CHD_H);		
-			}else{
-				setPwm(7,STP_CHA_L,STP_CHA_H);
-				setPwm(5,STP_CHB_L,STP_CHB_H);
-				setPwm(6,STP_CHC_L,STP_CHC_H);
-				setPwm(4,STP_CHD_L,STP_CHD_H);
-				degree = -degree;
-			}
-		}
-		
+		setStepper(index, degree>0);
+		degree = Math.abs(degree);
 		basic.pause(5120*degree/360);
 		MotorStopAll()
 		setFreq(50);
 	}
 	
+	
 	//% blockId=robotbit_stepper_turn block="Stepper 28BYJ-48|%index|turn %turn"
 	//% weight=90
-	//% blockGap=50
-	//% blockGap=50
 	export function StepperTurn(index: Steppers, turn: Turns): void {
-		let degree = turn*360;
+		let degree = turn;
 		StepperDegree(index, degree);
+	}
+	
+	//% blockId=robotbit_stepper_dual block="Dual Stepper(Degree) |M1 %degree1| M2 %degree2"
+	//% weight=89
+	//% blockGap=50
+	export function StepperDual(degree1: number, degree2: number): void {
+		if(!initialized){
+			initPCA9685()
+		}
+		setFreq(100);
+		setStepper(1, degree1>0);
+		setStepper(2, degree2>0);
+		degree1 = Math.abs(degree1);
+		degree2 = Math.abs(degree2);
+		basic.pause(5120*Math.min(degree1,degree2)/360);
+		if(degree1>degree2){
+			stopMotor(3);stopMotor(4);
+			basic.pause(5120*(degree1-degree2)/360);
+		}else{
+			stopMotor(1);stopMotor(2);
+			basic.pause(5120*(degree2-degree1)/360);
+		}
+		
+		MotorStopAll()
+		setFreq(50);
+		
 	}
 	
 	
@@ -272,8 +306,8 @@ namespace robotbit {
 	//% blockId=robotbit_stop_all block="Motor Stop All"
 	//% weight=79
 	export function MotorStopAll(): void {
-		for(let idx=0;idx<8;idx++){
-			setPwm(idx, 0, 0);
+		for(let idx=1;idx<=4;idx++){
+			stopMotor(idx);
 		}	
 	}
 	
