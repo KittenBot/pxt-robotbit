@@ -113,6 +113,9 @@ namespace robotbit {
     function initPCA9685(): void {
         i2cwrite(PCA9685_ADDRESS, MODE1, 0x00)
         setFreq(50);
+        for (let idx = 0; idx < 16; idx++) {
+			setPwm(idx, 0 ,0);
+		}
         initialized = true
     }
 
@@ -204,6 +207,11 @@ namespace robotbit {
         return neoStrip;
     }
 
+	/**
+	 * Servo Execute
+	 * @param index Servo Channel; eg: S1
+	 * @param degree [0-180] degree of servo; eg: 0, 90, 180
+	*/
     //% blockId=robotbit_servo block="Servo|%index|degree %degree"
     //% weight=100
     //% blockGap=50
@@ -243,7 +251,6 @@ namespace robotbit {
 
     //% blockId=robotbit_stepper_dual block="Dual Stepper(Degree) |M1 %degree1| M2 %degree2"
     //% weight=89
-    //% blockGap=50
     export function StepperDual(degree1: number, degree2: number): void {
         if (!initialized) {
             initPCA9685()
@@ -266,7 +273,37 @@ namespace robotbit {
         setFreq(50);
 
     }
-
+	
+	//% blockId=robotbit_stpcar_move block="Car Forward|Diameter(cm) %distance|Wheel Diameter(cm) %diameter"
+    //% weight=88
+    export function StpCarMove(distance: number, diameter: number): void {
+		if (!initialized) {
+            initPCA9685()
+        }
+        setFreq(100);
+		let degree = distance / 3.1415926 / diameter;
+		setStepper(1, degree > 0);
+        setStepper(2, degree > 0);
+		basic.pause(5120 * degree);
+        MotorStopAll()
+        setFreq(50);
+    }
+	
+	//% blockId=robotbit_stpcar_turn block="Car Turn|Degree %turn|Wheel Diameter(cm) %diameter|Track(cm) %track"
+    //% weight=87
+	//% blockGap=50
+    export function StpCarTurn(turn: number, diameter: number, track: number): void {
+		if (!initialized) {
+            initPCA9685()
+        }
+        setFreq(100);
+		let degree = turn * track / 360 / diameter;
+		setStepper(1, degree < 0);
+        setStepper(2, degree > 0);
+		basic.pause(5120 * degree);
+        MotorStopAll()
+        setFreq(50);
+    }
 
     //% blockId=robotbit_motor_run block="Motor|%index|speed %speed"
     //% weight=85
@@ -314,6 +351,12 @@ namespace robotbit {
         MotorRun(motor2, speed2);
     }
 
+	/**
+	 * Execute single motors with delay
+	 * @param index Motor Index; eg: M1A, M1B, M2A, M2B
+	 * @param speed [-255-255] speed of motor; eg: 150, -150
+	 * @param delay seconde delay to stop; eg: 1
+	*/
     //% blockId=robotbit_motor_rundelay block="Motor|%index|speed %speed|delay %delay|s"
     //% weight=81
     //% speed.min=-255 speed.max=255
