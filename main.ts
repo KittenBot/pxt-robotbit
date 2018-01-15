@@ -311,7 +311,6 @@ namespace robotbit {
         }
         setFreq(100);
 		let delay = 5120 * turn * track / 360 / diameter;
-		serial.writeValue("x", delay)
 		setStepper(1, delay < 0);
         setStepper(2, delay > 0);
 		delay = Math.abs(delay);
