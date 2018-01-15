@@ -274,22 +274,35 @@ namespace robotbit {
 
     }
 	
-	//% blockId=robotbit_stpcar_move block="Car Forward|Diameter(cm) %distance|Wheel Diameter(cm) %diameter"
+	/**
+	 * Stepper Car move forward
+	 * @param distance Distance to move in cm; eg: 10, 20
+	 * @param diameter diameter of wheel in mm; eg: 48
+	*/
+	//% blockId=robotbit_stpcar_move block="Car Forward|Diameter(cm) %distance|Wheel Diameter(mm) %diameter"
     //% weight=88
     export function StpCarMove(distance: number, diameter: number): void {
 		if (!initialized) {
             initPCA9685()
         }
         setFreq(100);
-		let degree = distance / 3.1415926 / diameter;
+		let degree = 10 * distance / 3 / diameter; // use 3 instead of pi
 		setStepper(1, degree > 0);
         setStepper(2, degree > 0);
+		degree = Math.abs(degree);
 		basic.pause(5120 * degree);
         MotorStopAll()
         setFreq(50);
+		
     }
 	
-	//% blockId=robotbit_stpcar_turn block="Car Turn|Degree %turn|Wheel Diameter(cm) %diameter|Track(cm) %track"
+	/**
+	 * Stepper Car turn by degree
+	 * @param turn Degree to turn; eg: 90, 180, 360
+	 * @param diameter diameter of wheel in mm; eg: 48
+	 * @param track track width of car; eg: 125
+	*/
+	//% blockId=robotbit_stpcar_turn block="Car Turn|Degree %turn|Wheel Diameter(mm) %diameter|Track(mm) %track"
     //% weight=87
 	//% blockGap=50
     export function StpCarTurn(turn: number, diameter: number, track: number): void {
@@ -297,10 +310,12 @@ namespace robotbit {
             initPCA9685()
         }
         setFreq(100);
-		let degree = turn * track / 360 / diameter;
-		setStepper(1, degree < 0);
-        setStepper(2, degree > 0);
-		basic.pause(5120 * degree);
+		let delay = 5120 * turn * track / 360 / diameter;
+		serial.writeValue("x", delay)
+		setStepper(1, delay < 0);
+        setStepper(2, delay > 0);
+		delay = Math.abs(delay);
+		basic.pause(delay);
         MotorStopAll()
         setFreq(50);
     }
