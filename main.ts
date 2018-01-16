@@ -286,11 +286,11 @@ namespace robotbit {
             initPCA9685()
         }
         setFreq(100);
-		let degree = 10 * distance / 3 / diameter; // use 3 instead of pi
-		setStepper(1, degree > 0);
-        setStepper(2, degree > 0);
-		degree = Math.abs(degree);
-		basic.pause(5120 * degree);
+		let delay = 5120 * 10 * distance / 3 / diameter; // use 3 instead of pi
+		setStepper(1, delay > 0);
+        setStepper(2, delay > 0);
+		delay = Math.abs(delay);
+		basic.pause(delay);
         MotorStopAll()
         setFreq(50);
 		
