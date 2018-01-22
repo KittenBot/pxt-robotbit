@@ -235,7 +235,7 @@ namespace robotbit {
         }
         setStepper(index, degree > 0);
         degree = Math.abs(degree);
-        basic.pause(5120 * degree / 360);
+        basic.pause(10240 * degree / 360);
         MotorStopAll()
     }
 
@@ -257,13 +257,13 @@ namespace robotbit {
         setStepper(2, degree2 > 0);
         degree1 = Math.abs(degree1);
         degree2 = Math.abs(degree2);
-        basic.pause(5120 * Math.min(degree1, degree2) / 360);
+        basic.pause(10240 * Math.min(degree1, degree2) / 360);
         if (degree1 > degree2) {
             stopMotor(3); stopMotor(4);
-            basic.pause(5120 * (degree1 - degree2) / 360);
+            basic.pause(10240 * (degree1 - degree2) / 360);
         } else {
             stopMotor(1); stopMotor(2);
-            basic.pause(5120 * (degree2 - degree1) / 360);
+            basic.pause(10240 * (degree2 - degree1) / 360);
         }
 
         MotorStopAll()
@@ -280,7 +280,7 @@ namespace robotbit {
 		if (!initialized) {
             initPCA9685()
         }
-		let delay = 5120 * 10 * distance / 3 / diameter; // use 3 instead of pi
+		let delay = 10240 * 10 * distance / 3 / diameter; // use 3 instead of pi
 		setStepper(1, delay > 0);
         setStepper(2, delay > 0);
 		delay = Math.abs(delay);
@@ -301,7 +301,7 @@ namespace robotbit {
 		if (!initialized) {
             initPCA9685()
         }
-		let delay = 5120 * turn * track / 360 / diameter;
+		let delay = 10240 * turn * track / 360 / diameter;
 		setStepper(1, delay < 0);
         setStepper(2, delay > 0);
 		delay = Math.abs(delay);
