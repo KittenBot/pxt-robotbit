@@ -1,5 +1,5 @@
 /*
-R
+Riven
 modified from pxt-servo/servodriver.ts
 load dependency
 "robotbit": "file:../pxt-robotbit"
@@ -90,6 +90,7 @@ namespace robotbit {
     let initializedMatrix = false
     let neoStrip: neopixel.Strip;
     let matBuf = pins.createBuffer(17);
+	let distanceBuf = 0;
 
     function i2cwrite(addr: number, reg: number, value: number) {
         let buf = pins.createBuffer(2)
@@ -442,8 +443,16 @@ namespace robotbit {
         pins.digitalWritePin(pin, 0);
 
         // read pulse
-        let d = pins.pulseIn(pin, PulseValue.High, 11600);
-        return d / 58;
+        let d = pins.pulseIn(pin, PulseValue.High, 25000);
+		let ret = d;
+		serial.writeValue("ret", ret)
+		serial.writeValue("d", ret*10/6/58)
+		// filter timeout spikes
+		if (ret == 0 && distanceBuf!= 0){
+			ret = distanceBuf;
+		}
+		distanceBuf = d;
+        return ret*10/6/58;
     }
 
 
