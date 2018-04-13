@@ -445,8 +445,8 @@ namespace robotbit {
         // read pulse
         let d = pins.pulseIn(pin, PulseValue.High, 25000);
 		let ret = d;
-		serial.writeValue("ret", ret)
-		serial.writeValue("d", ret*10/6/58)
+		// serial.writeValue("ret", ret)
+		// serial.writeValue("d", ret*10/6/58)
 		// filter timeout spikes
 		if (ret == 0 && distanceBuf!= 0){
 			ret = distanceBuf;
