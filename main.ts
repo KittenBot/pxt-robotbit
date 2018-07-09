@@ -242,7 +242,7 @@ namespace robotbit {
             initPCA9685()
         }
         // 50hz: 20,000 us
-        let v_us = ((degree -90) * 200 / 27 + 1500) // 0.6 ~ 2.4
+        let v_us = ((degree -90) * 20 / 3 + 1500) // 0.6 ~ 2.4
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }
