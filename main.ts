@@ -139,7 +139,10 @@ namespace robotbit {
     function setPwm(channel: number, on: number, off: number): void {
         if (channel < 0 || channel > 15)
             return;
-
+        //serial.writeValue("ch", channel)
+        //serial.writeValue("on", on)
+        //serial.writeValue("off", off)
+        
         let buf = pins.createBuffer(5);
         buf[0] = LED0_ON_L + 4 * channel;
         buf[1] = on & 0xff;
@@ -294,7 +297,7 @@ namespace robotbit {
      * @param distance Distance to move in cm; eg: 10, 20
      * @param diameter diameter of wheel in mm; eg: 48
     */
-    //% blockId=robotbit_stpcar_move block="Car Forward|Diameter(cm) %distance|Wheel Diameter(mm) %diameter"
+    //% blockId=robotbit_stpcar_move block="Car Forward|Distance(cm) %distance|Wheel Diameter(mm) %diameter"
     //% weight=88
     export function StpCarMove(distance: number, diameter: number): void {
         if (!initialized) {
@@ -403,6 +406,9 @@ namespace robotbit {
     //% weight=79
     //% blockGap=50
     export function MotorStopAll(): void {
+        if (!initialized) {
+            initPCA9685()
+        }
         for (let idx = 1; idx <= 4; idx++) {
             stopMotor(idx);
         }
@@ -416,7 +422,9 @@ namespace robotbit {
             initializedMatrix = true;
         }
         let idx = y * 2 + x / 8;
-        matBuf[idx + 1] |= (1 << (x % 8));
+        let tmp = matBuf[idx + 1];
+        tmp |= (1 << (x % 8));
+        matBuf[idx + 1] = tmp;
         matrixShow();
     }
 
@@ -469,7 +477,7 @@ namespace robotbit {
             ret = distanceBuf;
         }
         distanceBuf = d;
-        return ret*10/6/58;
+        return Math.floor(ret*10/6/58);
     }
 
 
