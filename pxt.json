@@ -1,11 +1,11 @@
 {
     "name": "robotbit",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "description": "Extension for Kittenbot Robotbit",
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "neopixel": "github:microsoft/pxt-neopixel#v0.6.9"
+        "neopixel": "github:microsoft/pxt-neopixel#v0.6.10"
     },
     "files": [
         "README.md",
