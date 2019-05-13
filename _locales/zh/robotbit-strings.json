@@ -11,6 +11,7 @@
 	"robotbit.MotorStop|block": "电机 停止|%index|",
 	"robotbit.MotorStopAll|block": "停止所有电机",
 	"robotbit.Ultrasonic|block": "超声波|引脚 %pin",
+    "robotbit.UltrasonicVer|block": "超声波|引脚 %pin|类型 %v",
 	"robotbit.MatrixDraw|block": "LED矩阵 描点|X %x|Y %y",
 	"robotbit.MatrixClear|block": "LED矩阵 清空"
 }

@@ -69,6 +69,11 @@ namespace robotbit {
         M2 = 0x2
     }
 
+    export enum SonarVersion {
+        V1 = 0x1,
+        V2 = 0x2
+    }
+
     export enum Turns {
         //% blockId="T1B4" block="1/4"
         T1B4 = 90,
@@ -115,7 +120,7 @@ namespace robotbit {
         i2cwrite(PCA9685_ADDRESS, MODE1, 0x00)
         setFreq(50);
         for (let idx = 0; idx < 16; idx++) {
-            setPwm(idx, 0 ,0);
+            setPwm(idx, 0, 0);
         }
         initialized = true
     }
@@ -142,7 +147,7 @@ namespace robotbit {
         //serial.writeValue("ch", channel)
         //serial.writeValue("on", on)
         //serial.writeValue("off", off)
-        
+
         let buf = pins.createBuffer(5);
         buf[0] = LED0_ON_L + 4 * channel;
         buf[1] = on & 0xff;
@@ -245,11 +250,11 @@ namespace robotbit {
             initPCA9685()
         }
         // 50hz: 20,000 us
-        let v_us = ((degree -90) * 20 / 3 + 1500) // 0.6 ~ 2.4
+        let v_us = ((degree - 90) * 20 / 3 + 1500) // 0.6 ~ 2.4
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }
-    
+
     //% blockId=robotbit_stepper_degree block="Stepper 28BYJ-48|%index|degree %degree"
     //% weight=90
     export function StepperDegree(index: Steppers, degree: number): void {
@@ -308,7 +313,7 @@ namespace robotbit {
         setStepper(2, delay > 0);
         delay = Math.abs(delay);
         basic.pause(delay);
-        MotorStopAll()	
+        MotorStopAll()
     }
 
     /**
@@ -460,6 +465,12 @@ namespace robotbit {
     //% blockId=robotbit_ultrasonic block="Ultrasonic|pin %pin"
     //% weight=10
     export function Ultrasonic(pin: DigitalPin): number {
+        return UltrasonicVer(pin, SonarVersion.V1);
+    }
+
+    //% blockId=robotbit_ultrasonicver block="Ultrasonic|pin %pin|version %v"
+    //% weight=10
+    export function UltrasonicVer(pin: DigitalPin, v: SonarVersion): number {
 
         // send pulse
         pins.setPull(pin, PinPullMode.PullNone);
@@ -473,11 +484,14 @@ namespace robotbit {
         let d = pins.pulseIn(pin, PulseValue.High, 25000);
         let ret = d;
         // filter timeout spikes
-        if (ret == 0 && distanceBuf!= 0){
+        if (ret == 0 && distanceBuf != 0) {
             ret = distanceBuf;
         }
         distanceBuf = d;
-        return Math.floor(ret*10/6/58);
+        if (v == SonarVersion.V1){
+            return Math.floor(ret *10 / 6 / 58);
+        }
+        return Math.floor(ret / 58); 
     }
 
 
