@@ -492,7 +492,7 @@ namespace robotbit {
         if (v == SonarVersion.V1) {
             return Math.floor(ret * 10 / 6 / 58);
         }
-    }
+        return Math.floor(ret / 40); 
 
 
 }
