@@ -487,12 +487,11 @@ namespace robotbit {
         if (ret == 0 && distanceBuf != 0) {
             ret = distanceBuf;
         }
-        serial.writeLine(""+ d)
         distanceBuf = d;
         if (v == SonarVersion.V1) {
             return Math.floor(ret * 10 / 6 / 58);
         }
         return Math.floor(ret / 40); 
-
+    }
 
 }
