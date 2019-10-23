@@ -426,10 +426,23 @@ namespace robotbit {
             matrixInit();
             initializedMatrix = true;
         }
-        let idx = y * 2 + x / 8;
+        x = Math.round(x)
+        y = Math.round(y)
+        
+        let idx = y * 2 + Math.idiv(x, 8);
+        
         let tmp = matBuf[idx + 1];
         tmp |= (1 << (x % 8));
         matBuf[idx + 1] = tmp;
+    }
+
+    //% blockId=robotbit_matrix_refresh block="Matrix Refresh"
+    //% weight=69
+    export function MatrixRefresh(): void {
+        if (!initializedMatrix) {
+            matrixInit();
+            initializedMatrix = true;
+        }
         matrixShow();
     }
 
