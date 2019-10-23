@@ -1,0 +1,20 @@
+{
+    "target": "microbit",
+    "targetVersion": "1.4.11",
+    "name": "robotbit",
+    "meta": {},
+    "editor": "tsprj",
+    "pubId": "",
+    "pubCurrent": false,
+    "_rev": null,
+    "id": "5f3fc131-dd08-4e8a-2a3f-61c22ba89542",
+    "recentUse": 1559628424,
+    "modificationTime": 1559628424,
+    "blobId": null,
+    "blobVersion": null,
+    "blobCurrent": false,
+    "isDeleted": false,
+    "path": "pxt-robotbit",
+    "githubCurrent": false,
+    "saveId": null
+}

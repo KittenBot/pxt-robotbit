@@ -486,7 +486,10 @@ namespace robotbit {
     export function UltrasonicVer(pin: DigitalPin, v: SonarVersion): number {
 
         // send pulse
-        pins.setPull(pin, PinPullMode.PullNone);
+        if (v == SonarVersion.V1) {
+            pins.setPull(pin, PinPullMode.PullNone);
+        }
+        else { pins.setPull(pin, PinPullMode.PullDown); }
         pins.digitalWritePin(pin, 0);
         control.waitMicros(2);
         pins.digitalWritePin(pin, 1);
@@ -501,11 +504,11 @@ namespace robotbit {
             ret = distanceBuf;
         }
         distanceBuf = d;
-        if (v == SonarVersion.V1){
-            return Math.floor(ret *10 / 6 / 58);
+        if (v == SonarVersion.V1) {
+            return Math.floor(ret * 9 / 6 / 58);
         }
-        return Math.floor(ret / 40); 
+        return Math.floor(ret / 40 + (ret / 800));
+        // Correction
     }
-
 
 }
