@@ -242,7 +242,6 @@ namespace robotbit {
     */
     //% blockId=robotbit_gservo block="Geek Servo|%index|degree %degree"
     //% weight=99
-    //% blockGap=50
     //% degree.min=-45 degree.max=225
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function GeekServo(index: Servos, degree: number): void {
@@ -251,6 +250,27 @@ namespace robotbit {
         }
         // 50hz: 20,000 us
         let v_us = ((degree - 90) * 20 / 3 + 1500) // 0.6 ~ 2.4
+        let value = v_us * 4096 / 20000
+        setPwm(index + 7, 0, value)
+    }
+
+        /**
+     * GeekServo2KG
+     * @param index Servo Channel; eg: S1
+     * @param degree [0-360] degree of servo; eg: 0, 180, 360
+    */
+    //% blockId=robotbit_gservo2kg block="GeekServo2KG|%index|degree %degree"
+    //% weight=98
+    //% blockGap=50
+    //% degree.min=0 degree.max=360
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function GeekServo2KG(index: Servos, degree: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        // 50hz: 20,000 us
+        //let v_us = (degree * 2000 / 360 + 500)  0.5 ~ 2.5
+        let v_us = (Math.floor((degree) * 2000 / 350) + 500) //fixed
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }
