@@ -1,6 +1,6 @@
 {
     "name": "robotbit",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "description": "Extension for Kittenbot Robotbit",
     "license": "MIT",
     "dependencies": {
@@ -10,8 +10,8 @@
     "files": [
         "README.md",
         "main.ts",
-        "_locales/zh-cn/robotbit-strings.json",
-        "_locales/zh-tw/robotbit-strings.json"
+        "_locales/zh-CH/robotbit-strings.json",
+        "_locales/zh-TW/robotbit-strings.json"
     ],
     "testFiles": [
         "test.ts"
