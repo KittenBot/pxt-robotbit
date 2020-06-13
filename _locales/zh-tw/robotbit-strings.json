@@ -1,7 +1,7 @@
 {
     "robotbit.Servo|block": "9g舵機|%index|角度 %degree",
     "robotbit.GeekServo|block": "Geekservo|9g舵機|%index|角度 %degree",
-    "robotbit.GeekServo2KG|block": "2KG舵機|%index|角度 %degree",
+    "robotbit.GeekServo2KG|block": "Geekservo|2KG舵機|%index|角度 %degree",
     "robotbit.StepperDegree|block": "步進 28BYJ-48|%index|角度 %degree",
     "robotbit.StepperTurn|block": "步進 28BYJ-48|%index|圈數 %turn",
     "robotbit.StepperDual|block": "雙步進(角度) |M1 %degree1| M2 %degree2",
