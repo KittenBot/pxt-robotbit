@@ -15,6 +15,6 @@
     "robotbit.RgbUltrasonic|block": "猫耳RGB超声波|引脚 %pin",
     "robotbit.HoleUltrasonic|block": "猫耳洞超声波|引脚 %pin",
     "robotbit.MatrixDraw|block": "LED矩阵 描点|X %x|Y %y",
-    "robotbit.MatrixClear|block": "清空 LED矩阵 "
+    "robotbit.MatrixClear|block": "清空 LED矩阵 ",
     "robotbit.MatrixRefresh|block": "刷新 LED矩阵 "
 }
