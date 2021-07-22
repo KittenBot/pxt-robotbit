@@ -517,7 +517,7 @@ namespace robotbit {
         return Math.floor(ret * 9 / 6 / 58);
     }
 
-    //% blockId=robotbit_holeultrasonicver block="Ultrasonic|pin %pin|version %v"
+    //% blockId=robotbit_holeultrasonicver block="Ultrasonic|pin %pin"
     //% weight=10
     export function HoleUltrasonic(pin: DigitalPin): number {
 
