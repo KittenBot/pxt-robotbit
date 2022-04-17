@@ -4,10 +4,11 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-robotbit": "github:pelikhan/pxt-robotbit"
+        "pxt-robotbit": "github:pelikhan/pxt-robotbit",
+        "jacdac": "github:microsoft/pxt-jacdac#v0.9.5",
+        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.9.5"
     },
     "files": [
-        "main.blocks",
         "main.ts",
         "README.md"
     ],
@@ -21,5 +22,5 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }
