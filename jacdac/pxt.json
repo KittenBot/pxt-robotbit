@@ -1,6 +1,6 @@
 {
     "name": "robotbit-jacdac",
-    "version": "0.3.9",
+    "version": "0.3.10",
     "dependencies": {
         "core": "*",
         "radio": "*",
