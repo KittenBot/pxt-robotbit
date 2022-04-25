@@ -6,9 +6,9 @@
         "radio": "*",
         "microphone": "*",
         "pxt-robotbit": "github:pelikhan/pxt-robotbit",
-        "jacdac": "github:microsoft/pxt-jacdac#v0.10.2",
-        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.10.2",
-        "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.10.2"
+        "jacdac": "github:microsoft/pxt-jacdac#v0.10.3",
+        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.10.3",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.10.3"
     },
     "files": [
         "main.ts",
