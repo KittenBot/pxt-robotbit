@@ -8,55 +8,55 @@ namespace modules {
      * Motor 1A
      */
     //% fixedInstance whenUsed block="robotbit motor 1A"
-    export const robotbitMotor1A = new MotorClient("robotbit motor 1A?device=self")
+    export const robotbitMotor1A = new MotorClient("robotbit motor 1A?dev=self&srvo=0")
     /**
      * Motor 1B
      */
     //% fixedInstance whenUsed block="robotbit motor 1B"
-    export const robotbitMotor1B = new MotorClient("robotbit motor 1B?device=self")
+    export const robotbitMotor1B = new MotorClient("robotbit motor 1B?dev=self&srvo=1")
     /**
      * Motor 2A
      */
     //% fixedInstance whenUsed block="robotbit motor 2A"
-    export const robotbitMotor2A = new MotorClient("robotbit motor 2A?device=self")
+    export const robotbitMotor2A = new MotorClient("robotbit motor 2A?dev=self&srvo=2")
     /**
      * Motor 2B
      */
     //% fixedInstance whenUsed block="robotbit motor 2B"
-    export const robotbitMotor2B = new MotorClient("robotbit motor 2B?device=self")
+    export const robotbitMotor2B = new MotorClient("robotbit motor 2B?dev=self&srvo=3")
 
     /**
      * Servo S1
      */
-    export const robotbitServoS1 = new ServoClient("robotbit servo S1?device=self")
+    export const robotbitServoS1 = new ServoClient("robotbit servo S1?dev=self&srvo=0")
     /**
      * Servo S2
      */
-    export const robotbitServoS2 = new ServoClient("robotbit servo S2?device=self")
+    export const robotbitServoS2 = new ServoClient("robotbit servo S2?dev=self&srvo=1")
     /**
      * Servo S3
      */
-    export const robotbitServoS3 = new ServoClient("robotbit servo S3?device=self")
+    export const robotbitServoS3 = new ServoClient("robotbit servo S3?dev=self&srvo=2")
     /**
      * Servo S4
      */
-    export const robotbitServoS4 = new ServoClient("robotbit servo S4?device=self")
+    export const robotbitServoS4 = new ServoClient("robotbit servo S4?dev=self&srvo=3")
     /**
      * Servo S5
      */
-    export const robotbitServoS5 = new ServoClient("robotbit servo S5?device=self")
+    export const robotbitServoS5 = new ServoClient("robotbit servo S5?dev=self&srvo=4")
     /**
      * Servo S6
      */
-    export const robotbitServoS6 = new ServoClient("robotbit servo S6?device=self")
+    export const robotbitServoS6 = new ServoClient("robotbit servo S6?dev=self&srvo=5")
     /**
      * Servo S7
      */
-    export const robotbitServoS7 = new ServoClient("robotbit servo S7?device=self")
+    export const robotbitServoS7 = new ServoClient("robotbit servo S7?dev=self&srvo=6")
     /**
      * Servo S8
      */
-    export const robotbitServoS8 = new ServoClient("robotbit servo S8?device=self")
+    export const robotbitServoS8 = new ServoClient("robotbit servo S8?dev=self&srvo=7")
 }
 
 namespace servers {
@@ -76,7 +76,7 @@ namespace servers {
 
         handlePacket(pkt: jacdac.JDPacket) {
             this.handleRegValue(pkt, jacdac.MotorReg.Reversible, jacdac.MotorRegPack.Reversible, true)
-            this.speed = this.handleRegValue(pkt, jacdac.MotorReg.Duty, jacdac.MotorRegPack.Duty, this.speed)
+            this.speed = this.handleRegValue(pkt, jacdac.MotorReg.Speed, jacdac.MotorRegPack.Speed, this.speed)
             this.enabled = this.handleRegBool(pkt, jacdac.MotorReg.Enabled, this.enabled)
 
             this.sync()

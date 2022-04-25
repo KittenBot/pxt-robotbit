@@ -4,9 +4,9 @@ forever(() => {
     led.toggle(0, 0)
     
     modules.robotbitMotor1A.run(speed)
-    modules.robotbitMotor1B.run(100 - speed)
+    modules.robotbitMotor1B.run(- speed)
     modules.robotbitMotor2A.run(speed / 2)
-    modules.robotbitMotor2B.run((100 - speed) / 2)
+    modules.robotbitMotor2B.run((- speed) / 2)
 
     modules.robotbitServoS1.setAngle(speed)
     modules.robotbitServoS2.setAngle(speed)

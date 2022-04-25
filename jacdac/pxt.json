@@ -6,10 +6,9 @@
         "radio": "*",
         "microphone": "*",
         "pxt-robotbit": "github:pelikhan/pxt-robotbit",
-        "jacdac": "github:microsoft/pxt-jacdac#v0.9.5",
-        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.9.5",
-        "jacdac-led-display": "github:microsoft/pxt-jacdac/led-display#v0.9.5",
-        "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.9.5"
+        "jacdac": "github:microsoft/pxt-jacdac#v0.10.2",
+        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.10.2",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.10.2"
     },
     "files": [
         "main.ts",
@@ -19,7 +18,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "4.1.22",
+        "target": "4.1.24",
         "targetId": "microbit"
     },
     "supportedTargets": [
