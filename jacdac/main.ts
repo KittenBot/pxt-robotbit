@@ -106,6 +106,7 @@ namespace servers {
         }
     }
     function start() {
+        jacdac.productIdentifier = 0x31ea8476
         jacdac.startSelfServers(() => [
             // motors
             new MotorServer(robotbit.Motors.M1A, "M1A"),
