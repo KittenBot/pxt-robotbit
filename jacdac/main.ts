@@ -28,7 +28,7 @@ namespace modules {
     /**
      * Servo S1
      */
-    export const robotbitServoS1 = new ServoClient("robotbit servo S1?dev=self&srvo=0")
+    export const robotbitServoS1 = new ServoClient("robotbit servo S1?dev=self&srvo=0&name=S1")
     /**
      * Servo S2
      */
@@ -100,7 +100,7 @@ namespace servers {
         }
         handlePacket(pkt: jacdac.JDPacket) {
             this.angle = this.handleRegValue(pkt, jacdac.ServoReg.Angle, jacdac.ServoRegPack.Angle, this.angle)
-            this.handleRegValue(pkt, jacdac.ServoReg.CurrentAngle, jacdac.ServoRegPack.CurrentAngle, this.angle)
+            this.handleRegValue(pkt, jacdac.ServoReg.ActualAngle, jacdac.ServoRegPack.ActualAngle, this.angle)
 
             robotbit.Servo(this.servo, this.angle)
         }
