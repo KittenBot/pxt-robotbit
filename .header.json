@@ -1,6 +1,6 @@
 {
     "target": "microbit",
-    "targetVersion": "1.4.11",
+    "targetVersion": "2.3.70",
     "name": "robotbit",
     "meta": {},
     "editor": "tsprj",
@@ -8,8 +8,8 @@
     "pubCurrent": false,
     "_rev": null,
     "id": "5f3fc131-dd08-4e8a-2a3f-61c22ba89542",
-    "recentUse": 1591963961,
-    "modificationTime": 1591957150,
+    "recentUse": 1657684445,
+    "modificationTime": 1657684445,
     "blobId": null,
     "blobVersion": null,
     "blobCurrent": false,
