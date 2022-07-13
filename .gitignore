@@ -5,3 +5,5 @@ yotta_targets
 pxt_modules
 *.db
 *.tgz
+.DS_store
+*/.DS_store
