@@ -499,7 +499,7 @@ namespace robotbit {
      * signal pin
      * @param pin singal pin; eg: DigitalPin.P1
      */
-    //% blockId=robotbit_rgbultrasonic block="Ultrasonic|pin %pin"
+    //% blockId=robotbit_rgbultrasonic block="Ultrasonic(with RGB)|pin %pin"
     //% group="Modules" weight=41
     export function RgbUltrasonic(pin: DigitalPin): number {
         pins.setPull(pin, PinPullMode.PullNone);
@@ -525,7 +525,7 @@ namespace robotbit {
      * signal pin
      * @param pin singal pin; eg: DigitalPin.P1
      */
-    //% blockId=robotbit_holeultrasonicver block="Ultrasonic|pin %pin"
+    //% blockId=robotbit_holeultrasonicver block="Ultrasonic(with LEGO Hole)|pin %pin"
     //% group="Modules" weight=40
     export function HoleUltrasonic(pin: DigitalPin): number {
         // pins.setPull(pin, PinPullMode.PullDown);
