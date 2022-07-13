@@ -15,5 +15,9 @@
     "robotbit.RgbUltrasonic|block": "貓耳RGB超聲波|腳位 %pin",
     "robotbit.HoleUltrasonic|block": "貓耳洞超聲波|腳位 %pin",
     "robotbit.MatrixDraw|block": "LED矩陣 描點|X %x|Y %y",
-    "robotbit.MatrixClear|block": "清空 LED矩陣"
+    "robotbit.MatrixClear|block": "清空 LED矩陣",
+
+    "{id:group}Servo": "舵機",
+    "{id:group}Motor": "馬達/步進",
+    "{id:group}Modules": "外部模塊"
 }
