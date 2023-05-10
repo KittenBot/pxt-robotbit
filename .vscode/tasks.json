@@ -1,36 +1,67 @@
 
 // A task runner that calls the PXT compiler and
 {
-    "version": "0.1.0",
+    "version": "2.0.0",
 
     // The command is pxt. Assumes that PXT has been installed using npm install -g pxt
     "command": "pxt",
 
-    // The command is a shell script
-    "isShellCommand": true,
-
-    // Show the output window always.
-    "showOutput": "always",
-
-    "tasks": [{
-        "taskName": "deploy",
-        "isBuildCommand": true,
-        "problemMatcher": "$tsc",
-        "args": [""]
-    }, {
-        "taskName": "build",
-        "isTestCommand": true,
-        "problemMatcher": "$tsc",
-        "args": [""]
-    }, {
-        "taskName": "clean",
-        "isTestCommand": true,
-        "problemMatcher": "$tsc",
-        "args": [""]
-    }, {
-        "taskName": "serial",
-        "isTestCommand": true,
-        "problemMatcher": "$tsc",
-        "args": [""]
-    }]
+    "tasks": [
+        {
+            "label": "deploy",
+            "type": "shell",
+            "command": "pxt",
+            "args": [
+                "deploy",
+                ""
+            ],
+            "problemMatcher": "$tsc",
+            "group": {
+                "_id": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "pxt",
+            "args": [
+                "build",
+                ""
+            ],
+            "problemMatcher": "$tsc",
+            "group": {
+                "_id": "test",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "pxt",
+            "args": [
+                "clean",
+                ""
+            ],
+            "problemMatcher": "$tsc",
+            "group": {
+                "_id": "test",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "serial",
+            "type": "shell",
+            "command": "pxt",
+            "args": [
+                "serial",
+                ""
+            ],
+            "problemMatcher": "$tsc",
+            "group": {
+                "_id": "test",
+                "isDefault": false
+            }
+        }
+    ]
 }

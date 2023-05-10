@@ -91,6 +91,13 @@ namespace robotbit {
         T5B0 = 1800
     }
 
+	export enum ValueUnit {
+        //% block="mm"
+        Millimeter,
+        //% block="cm"
+        Centimeters
+    }
+
     let initialized = false
     let initializedMatrix = false
     let neoStrip: neopixel.Strip;
@@ -524,10 +531,12 @@ namespace robotbit {
     /**
      * signal pin
      * @param pin singal pin; eg: DigitalPin.P1
+     * @param unit desired conversion unit
      */
-    //% blockId=robotbit_holeultrasonicver block="Ultrasonic(with LEGO Hole)|pin %pin"
+    //% blockId=robotbit_holeultrasonicver block="Ultrasonic(with LEGO Hole)|pin %pin|unit %unit"
     //% group="Modules" weight=40
-    export function HoleUltrasonic(pin: DigitalPin): number {
+    export function HoleUltrasonic(pin: DigitalPin, unit: ValueUnit): number {
+        pins.setPull(pin, PinPullMode.PullNone);
         // pins.setPull(pin, PinPullMode.PullDown);
         pins.digitalWritePin(pin, 0);
         control.waitMicros(2);
@@ -546,6 +555,17 @@ namespace robotbit {
         distanceBuf = d;
         pins.digitalWritePin(pin, 0);
         basic.pause(15)
-        return Math.floor(ret / 40 + (ret / 800));
+	    if (parseInt(control.hardwareVersion()) == 2) {
+            d = ret *10 /58;
+        }
+        else{
+            // return Math.floor(ret / 40 + (ret / 800));
+            d = ret * 15 / 58;
+        }
+        switch (unit) {
+            case ValueUnit.Millimeter: return Math.floor(d)
+            case ValueUnit.Centimeters: return Math.floor(d/10)
+            default: return d;
+        }
     }
 }

@@ -14,10 +14,13 @@
     "robotbit.MotorStop|block": "电机 停止|%index|",
     "robotbit.MotorStopAll|block": "停止所有电机",
     "robotbit.RgbUltrasonic|block": "猫耳RGB超声波|引脚 %pin",
-    "robotbit.HoleUltrasonic|block": "猫耳洞超声波|引脚 %pin",
+    "robotbit.HoleUltrasonic|block": "猫耳洞超声波|引脚 %pin|单位 %unit",
     "robotbit.MatrixDraw|block": "LED矩阵 描点|X %x|Y %y",
     "robotbit.MatrixClear|block": "清空 LED矩阵 ",
     "robotbit.MatrixRefresh|block": "刷新 LED矩阵 ",
+
+    "robotbit.ValueUnit.Millimeter|block": "毫米",
+    "robotbit.ValueUnit.Centimeters|block": "厘米",
 
     "{id:group}Servo": "舵机",
     "{id:group}Motor": "电机/步进电机",
