@@ -292,7 +292,7 @@ namespace robotbit {
     //% blockGap=50
     //% degree.min=0 degree.max=360
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function GeekServo5KG(index: Servos, degree: number): void {
+    export function robotbit_gservo5kg(index: Servos, degree: number): void {
         if (!initialized) {
             initPCA9685()
         }
@@ -304,7 +304,7 @@ namespace robotbit {
     }
 
     //% blockId=robotbit_gservo5kg_motor_run block="GeekServo5KG_motor|%index|speed %speed"
-    //% group="Motor" weight=59
+    //% group="Servo" weight=59
     //% speed.min=-255 speed.max=255
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function robotbit_gservo5kg_motor_run(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
@@ -315,11 +315,14 @@ namespace robotbit {
         if (speed = 0) {// map 0-250 to 4000-3000
             speed = 4000
 		}else {
-			speed = 4000-(speed * 4)
+            const minInput = -255;
+            const maxInput = 255;
+            const minOutput = -1000;
+            const maxOutput = 1000;
+            const mappedValue = ((speed - minInput) / (maxInput - minInput)) * (maxOutput - minOutput) + minOutput;
+            speed = 4000 - Math.round(mappedValue)
         }
-
-        let v_us = (Math.floor((speed) * 2000 / 350) + 500) //
-        let value = v_us * 4096 / 20000
+        let value = speed * 4096 / 20000
         setPwm(index + 7, 0, value)
     }	
 	
