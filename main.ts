@@ -288,7 +288,7 @@ namespace robotbit {
      * @param degree [0-360] degree of servo; eg: 0, 180, 360
     */
     //% blockId=robotbit_gservo5kg block="GeekServo5KG|%index|degree %degree"
-    //% group="Servo" weight=60
+    //% group="Servo" weight=59
     //% blockGap=50
     //% degree.min=0 degree.max=360
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
@@ -299,6 +299,26 @@ namespace robotbit {
         // 50hz: 20,000 us
         //let v_us = (degree * 2000 / 360 + 500)  0.5 ~ 2.5
         let v_us = (Math.floor((degree) * 2000 / 350) + 500) //fixed
+        let value = v_us * 4096 / 20000
+        setPwm(index + 7, 0, value)
+    }
+
+    //% blockId=robotbit_gservo5kg_motor_run block="GeekServo5KG_motor|%index|speed %speed"
+    //% group="Motor" weight=59
+    //% speed.min=-255 speed.max=255
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function MotorRun(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
+        if (!initialized) {
+            initPCA9685()
+        }
+		
+        if (speed = 0) {// map 0-250 to 4000-3000
+            speed = 4000
+		}else {
+			speed = 4000-(speed * 4)
+        }
+
+        let v_us = (Math.floor((speed) * 2000 / 350) + 500) //
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }	
