@@ -307,7 +307,7 @@ namespace robotbit {
     //% group="Motor" weight=59
     //% speed.min=-255 speed.max=255
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function MotorRun(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
+    export function robotbit_gservo5kg_motor_run(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
         if (!initialized) {
             initPCA9685()
         }
