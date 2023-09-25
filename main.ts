@@ -281,6 +281,28 @@ namespace robotbit {
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }
+	
+        /**
+     * GeekServo5KG
+     * @param index Servo Channel; eg: S1
+     * @param degree [0-360] degree of servo; eg: 0, 180, 360
+    */
+    //% blockId=robotbit_gservo5kg block="GeekServo5KG|%index|degree %degree"
+    //% group="Servo" weight=60
+    //% blockGap=50
+    //% degree.min=0 degree.max=360
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function GeekServo5KG(index: Servos, degree: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        // 50hz: 20,000 us
+        //let v_us = (degree * 2000 / 360 + 500)  0.5 ~ 2.5
+        let v_us = (Math.floor((degree) * 2000 / 350) + 500) //fixed
+        let value = v_us * 4096 / 20000
+        setPwm(index + 7, 0, value)
+    }	
+	
 
     //% blockId=robotbit_stepper_degree block="Stepper 28BYJ-48|%index|degree %degree"
     //% group="Motor" weight=54

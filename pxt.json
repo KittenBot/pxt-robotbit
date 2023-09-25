@@ -1,6 +1,6 @@
 {
     "name": "robotbit",
-    "version": "0.4.5",
+    "version": "0.4.6",
     "description": "Extension for Kittenbot Robotbit",
     "license": "MIT",
     "dependencies": {
