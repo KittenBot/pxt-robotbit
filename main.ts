@@ -289,40 +289,37 @@ namespace robotbit {
     */
     //% blockId=robotbit_gservo5kg block="GeekServo5KG|%index|degree %degree"
     //% group="Servo" weight=59
-    //% blockGap=50
     //% degree.min=0 degree.max=360
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function robotbit_gservo5kg(index: Servos, degree: number): void {
+    export function GeekServo5KG(index: Servos, degree: number): void {
         if (!initialized) {
             initPCA9685()
         }
-        // 50hz: 20,000 us
-        //let v_us = (degree * 2000 / 360 + 500)  0.5 ~ 2.5
-        let v_us = (Math.floor((degree) * 2000 / 350) + 500) //fixed
+        const minInput = 0;
+        const maxInput = 355;//理论值为360
+        const minOutput = 500;
+        const maxOutput = 2500;
+        const v_us = ((degree - minInput) / (maxInput - minInput)) * (maxOutput - minOutput) + minOutput;
+
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }
 
-    //% blockId=robotbit_gservo5kg_motor_run block="GeekServo5KG_motor|%index|speed %speed"
-    //% group="Servo" weight=59
+    //% blockId=robotbit_gservo5kg_motor block="GeekServo5KG_MotorEN|%index|speed %speed"
+    //% group="Servo" weight=58
     //% speed.min=-255 speed.max=255
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function robotbit_gservo5kg_motor_run(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
+    export function GeekServo5KG_Motor(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
         if (!initialized) {
             initPCA9685()
         }
-		
-        if (speed = 0) {// map 0-250 to 4000-3000
-            speed = 4000
-		}else {
-            const minInput = -255;
-            const maxInput = 255;
-            const minOutput = -1000;
-            const maxOutput = 1000;
-            const mappedValue = ((speed - minInput) / (maxInput - minInput)) * (maxOutput - minOutput) + minOutput;
-            speed = 4000 - Math.round(mappedValue)
-        }
-        let value = speed * 4096 / 20000
+        const minInput = -255;
+        const maxInput = 255;
+        const minOutput = 5000;
+        const maxOutput = 3000;
+
+        const v_us = ((speed - minInput) / (maxInput - minInput)) * (maxOutput - minOutput) + minOutput;
+        let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }	
 	
