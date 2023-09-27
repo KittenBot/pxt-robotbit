@@ -281,6 +281,48 @@ namespace robotbit {
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
     }
+	
+        /**
+     * GeekServo5KG
+     * @param index Servo Channel; eg: S1
+     * @param degree [0-360] degree of servo; eg: 0, 180, 360
+    */
+    //% blockId=robotbit_gservo5kg block="GeekServo5KG|%index|degree %degree"
+    //% group="Servo" weight=59
+    //% degree.min=0 degree.max=360
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function GeekServo5KG(index: Servos, degree: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        const minInput = 0;
+        const maxInput = 355;//理论值为360
+        const minOutput = 500;
+        const maxOutput = 2500;
+        const v_us = ((degree - minInput) / (maxInput - minInput)) * (maxOutput - minOutput) + minOutput;
+
+        let value = v_us * 4096 / 20000
+        setPwm(index + 7, 0, value)
+    }
+
+    //% blockId=robotbit_gservo5kg_motor block="GeekServo5KG_MotorEN|%index|speed %speed"
+    //% group="Servo" weight=58
+    //% speed.min=-255 speed.max=255
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function GeekServo5KG_Motor(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
+        if (!initialized) {
+            initPCA9685()
+        }
+        const minInput = -255;
+        const maxInput = 255;
+        const minOutput = 5000;
+        const maxOutput = 3000;
+
+        const v_us = ((speed - minInput) / (maxInput - minInput)) * (maxOutput - minOutput) + minOutput;
+        let value = v_us * 4096 / 20000
+        setPwm(index + 7, 0, value)
+    }	
+	
 
     //% blockId=robotbit_stepper_degree block="Stepper 28BYJ-48|%index|degree %degree"
     //% group="Motor" weight=54

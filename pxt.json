@@ -1,6 +1,6 @@
 {
     "name": "robotbit",
-    "version": "0.4.5",
+    "version": "0.4.6",
     "description": "Extension for Kittenbot Robotbit",
     "license": "MIT",
     "dependencies": {
@@ -20,7 +20,7 @@
     ],
     "public": true,
     "targetVersions": {
-        "target": "5.1.26",
+        "target": "6.0.18",
         "targetId": "microbit"
     },
     "supportedTargets": [
