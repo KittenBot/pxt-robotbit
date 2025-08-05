@@ -325,6 +325,7 @@ namespace robotbit {
         const value = Math.round(v_us * 4096 / 20000);
         setPwm(index + 7, 0, value);
     }
+    
     //export function GeekServo5KG_Motor(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
       //  if (!initialized) {
             //initPCA9685()
