@@ -313,17 +313,7 @@ namespace robotbit {
         if (!initialized) {
             initPCA9685();
         }
-        if (speed === 0) {
-            setPwm(index + 7, 0, 843); // 直接硬编码
-            return;
-        }
-        const minInput = -255;
-        const maxInput = 255;
-        const minOutput = 5000;
-        const maxOutput = 3000;
-        const v_us = ((speed - minInput) / (maxInput - minInput)) * (maxOutput - minOutput) + minOutput;
-        const value = Math.round(v_us * 4096 / 20000);
-        setPwm(index + 7, 0, value);
+        setPwm(index + 7, 0, Math.round(((speed + 255) / 510 * 2000 + 3200) * 4096 / 20000))
     }
     
     //export function GeekServo5KG_Motor(index: Servos, speed: number): void { //5KG的电机模式 3000-5000 4000是回中
