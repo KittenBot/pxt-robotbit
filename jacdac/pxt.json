@@ -1,0 +1,28 @@
+{
+    "name": "robotbit-jacdac",
+    "version": "0.3.15",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "pxt-robotbit": "github:KittenBot/pxt-robotbit",
+        "jacdac": "github:microsoft/pxt-jacdac#v0.10.41",
+        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.10.41",
+        "jacdac-servo": "github:microsoft/pxt-jacdac/servo#v0.10.41"
+    },
+    "files": [
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "4.1.45",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
+}
